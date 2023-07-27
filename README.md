@@ -1,4 +1,4 @@
-# bootcamp medical assistant
+# Bootcamp Medical Assistant
 Medical assistant using OpenAI API in python
 Idea: Personalized AI Health Assistant for Chronic Disease Management
 
