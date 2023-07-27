@@ -35,7 +35,8 @@ Reduced Healthcare Burden: By assisting patients in managing chronic conditions 
 
 Data-Driven Healthcare: Aggregated and anonymized data from our AI health assistant can be analyzed to gain valuable insights into population health trends, contributing to evidence-based medical research and policy decisions.
 
-### Accessibility To reach a broader user base, we plan to make our AI health assistant available through user-friendly mobile applications or web platforms, ensuring easy accessibility for everyone.
+### Accessibility 
+To reach a broader user base, we plan to make our AI health assistant available through user-friendly mobile applications or web platforms, ensuring easy accessibility for everyone.
 
 ### Note
 Our AI health assistant is designed to complement professional medical advice, not replace it. Patients should always be encouraged to consult with healthcare professionals for any specific medical concerns or emergencies. Additionally, we prioritize user consent and data privacy throughout the development and deployment process.
