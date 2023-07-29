@@ -1,5 +1,6 @@
 # Bootcamp Medical Assistant
 Medical assistant using OpenAI API in python
+
 Idea: Personalized AI Health Assistant for Chronic Disease Management
 
 ### Problem
@@ -10,10 +11,6 @@ Solution: Our vision is to develop a personalized AI health assistant that uses 
 ### Implementation
 
 Patient Profiling: To offer personalized assistance, we will create a user profile for each patient, gathering information about their medical history, current health status, lifestyle habits, and treatment plans.
-
-Health Monitoring Devices Integration: Seamlessly integrating the AI health assistant with various health monitoring devices, such as blood glucose monitors, blood pressure cuffs, wearable fitness trackers, and smart scales, will enable us to collect real-time health data effortlessly.
-
-Machine Learning Models: Our team of experts will develop sophisticated machine learning models to analyze the user's health data and detect patterns, trends, and anomalies. For example, our AI assistant can predict blood glucose spikes for a diabetic patient based on their dietary intake and activity levels.
 
 Medication Reminders and Adherence: Adherence to treatment plans is crucial, so the AI assistant will send personalized medication reminders to patients, ensuring they take their prescribed medications on time. It will also monitor adherence and provide motivational messages to encourage compliance.
 
