@@ -12,6 +12,7 @@ body {
       padding: 20px;
       border:  solid #000000;
       border-radius: 5px;
+      background-color: whitesmoke;
 }
 
 .messages {
