@@ -1,6 +1,5 @@
 """
 Database Manager for VoxFlow
-This is an internal tool developed by the VoxFlow team
 """
 import json
 import sqlite3
