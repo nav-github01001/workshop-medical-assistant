@@ -10,30 +10,78 @@ Solution: Our vision is to develop a personalized AI health assistant that uses 
 
 ### Implementation
 
-Patient Profiling: To offer personalized assistance, we will create a user profile for each patient, gathering information about their medical history, current health status, lifestyle habits, and treatment plans.
-
-Medication Reminders and Adherence: Adherence to treatment plans is crucial, so the AI assistant will send personalized medication reminders to patients, ensuring they take their prescribed medications on time. It will also monitor adherence and provide motivational messages to encourage compliance.
+Medication Reminders and Adherence:The AI assistant will send personalized medication reminders to patients, ensuring they take their prescribed medications on time. It will also monitor adherence and provide motivational messages to encourage compliance.
 
 Lifestyle Recommendations: Understanding the impact of lifestyle choices on chronic conditions, the AI assistant will offer personalized lifestyle recommendations, including diet plans, exercise routines, and stress management techniques, tailored to the individual's needs.
 
-Real-time Health Insights: Our AI health assistant will proactively provide relevant health insights to patients, such as the correlation between their physical activity and blood pressure levels or suggestions to manage asthma triggers effectively.
-
 Communication Channel: Utilizing advanced natural language processing capabilities, the AI assistant will communicate with patients in a conversational manner, allowing users to ask questions, seek clarification, or discuss health concerns comfortably.
-
-Privacy and Security: The security of user health data is paramount. Our team will implement robust security measures to protect users' information and ensure full compliance with healthcare data protection regulations.
 
 ### Benefits
 
 Improved Disease Management: With the support of our personalized AI health assistant, patients can take charge of their health, leading to better disease management outcomes and improved quality of life.
 
-Enhanced Patient Engagement: Real-time insights, medication reminders, and interactive communication will empower patients to actively engage in their healthcare routine and make informed decisions.
+Enhanced Patient Engagement:Medication reminders and interactive communication will empower patients to actively engage in their healthcare routine and make informed decisions.
 
 Reduced Healthcare Burden: By assisting patients in managing chronic conditions effectively, our AI health assistant has the potential to reduce hospital readmissions and alleviate the overall burden on the healthcare system.
 
-Data-Driven Healthcare: Aggregated and anonymized data from our AI health assistant can be analyzed to gain valuable insights into population health trends, contributing to evidence-based medical research and policy decisions.
+## The Project
+This project is divided into two parts: The Frontend and The Backend
 
-### Accessibility 
-To reach a broader user base, we plan to make our AI health assistant available through user-friendly mobile applications or web platforms, ensuring easy accessibility for everyone.
+The backend uses Python and SQLite(for prototyping) and the frontend is made using vanilla JS
 
-### Note
-Our AI health assistant is designed to complement professional medical advice, not replace it. Patients should always be encouraged to consult with healthcare professionals for any specific medical concerns or emergencies. Additionally, we prioritize user consent and data privacy throughout the development and deployment process.
+### Process
+The backend uses OpenAI API at its core [GPT-3.5], SQLite for conversational history.
+
+Once a message is sent, it is sent to OpenAI which then creates a response which we add to our database (for conversational history). This data is not used for training and is automatically discarded after reaching 20 conversations (although the same cannot be said of OpenAI. Read the [DISCLAIMER](#disclaimer))
+
+### How to run it locally
+First, clone the repository 
+```sh
+git clone https://github.com/nav-github01001/workshop-medical-assistant
+cd workshop-medical-assistant
+```
+
+
+**Note: This assumes you are running Windows as your OS, with Vanilla Python and have installed Git in your system**
+
+
+You will need `python>=3.10` to run it
+
+To run it,first install the dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
+Then, run this
+
+```sh 
+py start.py
+```
+
+That simple!
+
+#### Install in Linux/Virtual Environment (venv)
+
+**Note: Due to [PEP668](https://peps.python.org/pep-0668/), Linux installs can only be performed in venv to prevent breaking system packages**
+
+
+##### For the quick and dirty:
+
+1. Go to the directory where you cloned this repo:
+
+``` sh
+python3 -m venv YourBotEnvName
+```
+
+2. Activate the venv
+If you don't know how to see it [here](https://docs.python.org/3/library/venv.html)
+
+3. Installing
+``` sh
+pip install -U EpikCord.py
+```
+
+
+## DISCLAIMER
+Our AI health assistant is designed to complement professional medical advice, not replace it. Patients should always be encouraged to consult with healthcare professionals for any specific medical concerns or emergencies. ***Additionally, we use a third-party [OpenAI] for the chatbot capabilities and they might use the data for training***

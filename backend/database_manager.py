@@ -1,6 +1,6 @@
 """
-Database Manager for VoxFlow
-This is an internal tool developed by the VoxFlow team
+Database Manager for medicalassistant
+This is an internal tool developed by the medicalassistant
 """
 import json
 import sqlite3
