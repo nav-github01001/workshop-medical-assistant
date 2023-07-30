@@ -13,8 +13,8 @@ openai.api_key = auth["openai_api_key"]
 routes = web.RouteTableDef()
 
 
-@routes.post("/post")
-async def return_index_webpage(request):
+@routes.post("/prompts")
+async def new_prompt(request):
     ...
 
 
