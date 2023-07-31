@@ -1,6 +1,5 @@
 """
-Database Manager for medicalassistant
-This is an internal tool developed by the medicalassistant
+Database Manager for VoxFlow
 """
 import json
 import sqlite3
