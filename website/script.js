@@ -1,5 +1,5 @@
 function login() {
-      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
 
       // Perform any client-side validation you want here (e.g., check if fields are not empty).
@@ -15,7 +15,9 @@ function login() {
 
 function signUp() {
       const newUsername = document.getElementById('newUsername').value
+      const newEmail = document.getElementById('newEmail').value
       const newPassword = document.getElementById('newPassword').value
+      const disease = document.getElementById('disease').value;
 
       // Perform any client-side validation you want here (e.g., check if fields are not empty).
 

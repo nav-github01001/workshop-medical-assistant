@@ -7,13 +7,24 @@ from random import choice, randint
 from string import printable
 from time import time as time_since_unix_epoch
 from typing import Union
-
+import tomllib
 import jwt
 from pyargon2 import hash as pwd_hash_function
 from aiohttp.web import json_response
 
+with open("./config.toml") as f:
+    config = tomllib.loads(f.read())
+
+with open('./backend/system_prompt.json') as f:
+    system_prompts = json.load(f)
+
+generic_disease_system_prompt = """
 
 
+
+
+
+"""
 class DatabaseManager:
     """
     for easy db management
@@ -68,10 +79,11 @@ class DatabaseManager:
         username = data["username"]
 
         salt = self._create_salt()
-        password_hash = self._hash_password(username, data["password"])
+        password_hash = self._hash_password(data["password"],salt)
+        system_prompt = system_prompts.get(data["disease"],generic_disease_system_prompt)
         user_id = self._create_user_snowflake()
         sql = """
-            INSERT INTO users (user_id, username, email,salt, password_hash, system_prompt)
+            INSERT INTO users (user_id, username, email,salt, password_hash,system_prompt)
             VALUES (?,?,?, ?, ?, ?, ?)
         """
 
@@ -84,11 +96,11 @@ class DatabaseManager:
                 salt,
                 password_hash,
                 data["bot_name"],
-                data["system_prompt"],
+                system_prompt,
             ),
         )
         self.conn.commit()
-        return {"user_id": user_id,"username":username,"email":data["email"],"bot_name":data["bot_name"],"system_prompt":data["system_prompt"]}
+        return {"user_id": user_id,"username":username,"email":data["email"],"bot_name":data["bot_name"],"system_prompt":system_prompt}
 
     def auth_user(self, email, password):
         """

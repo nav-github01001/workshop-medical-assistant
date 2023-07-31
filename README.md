@@ -47,13 +47,30 @@ cd workshop-medical-assistant
 
 You will need `python>=3.10` to run it
 
-To run it,first install the dependencies
+1. To run it,first install the dependencies
 
 ```sh
 pip install -r requirements.txt
 ```
 
-Then, run this
+2. Configurations:
+
+Make a new file `config.toml`
+
+Then, you need to create an api key from OpenAI. Create it [here](https://platform.openai.com/account/api-keys)
+
+After that,create a secret key with random numbers,characters
+
+After that, put this in `config.toml`
+
+```toml
+openai_api_key = [YOUR OPENAI API KEY HERE]
+token_secret = [YOUR SECRET KEY HERE]
+```
+
+
+
+3. Then, run this
 
 ```sh 
 py start.py
@@ -77,11 +94,7 @@ python3 -m venv YourBotEnvName
 2. Activate the venv
 If you don't know how to see it [here](https://docs.python.org/3/library/venv.html)
 
-3. Installing
-``` sh
-pip install -U EpikCord.py
-```
-
+Follow the instructions given above
 
 ## DISCLAIMER
 Our AI health assistant is designed to complement professional medical advice, not replace it. Patients should always be encouraged to consult with healthcare professionals for any specific medical concerns or emergencies. ***Additionally, we use a third-party [OpenAI] for the chatbot capabilities and they might use the data for training***
