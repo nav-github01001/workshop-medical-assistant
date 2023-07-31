@@ -1,5 +1,9 @@
 html {
-      background-color: rgb(186, 223, 255);
+      background-color: rgb(255, 243, 134);
+}
+
+::selection {
+      color:rgb(255, 25, 25)
 }
 
 body {
@@ -41,18 +45,22 @@ body {
       text-decoration: underline;
 }
 
-#message-input {
+#messageInput {
       padding-right: 2px;
+      font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-link {
-      color: rgba(133, 0, 0, 0.61);
+      color: rgba(255, 0, 119, 0.61);
       text-decoration: none;
       padding: 10px;
+      font-weight: bold;
+      font-size: 16px;
 }
 
 .nav-link:hover {
-      color: rgb(133, 0, 0)
+      color: rgb(43, 255, 0);
+      font-size: 16.5px;
 }
 
 #src-code {
@@ -95,16 +103,15 @@ textarea {
 .button {
       display: inline-block;
       padding: 0.46em 1.6em;
-      border: 0.1em solid #82f4fcd3;
+      border: 0.2em solid #ff0303d3;
       margin: 0 0.2em 0.2em 0;
       border-radius: 0.12em;
       box-sizing: border-box;
       text-decoration: none;
       font-family: 'Roboto', sans-serif;
       font-weight: 300;
-      color: #a1f1ffda;
+      color: #ffffffda;
       text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-      background-color: #82f4fc;
       text-align: center;
       transition: all 0.15s;
       border-radius: 5px;

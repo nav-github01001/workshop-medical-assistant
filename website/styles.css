@@ -1,6 +1,13 @@
+html {
+      background-color: rgb(255, 243, 134);
+}
+
+::selection {
+      color:rgb(255, 25, 25)
+}
+
 body {
       font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
 }
 
 .container {
