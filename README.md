@@ -27,7 +27,7 @@ Reduced Healthcare Burden: By assisting patients in managing chronic conditions 
 ## The Project
 This project is divided into two parts: The Frontend and The Backend
 
-The backend uses Python and SQLite(for prototyping) and the frontend is made using vanilla JS
+The backend uses Python and SQLite(for prototyping) and the frontend is made using CSS,HTML,vanilla JS
 
 ### Process
 The backend uses OpenAI API at its core [GPT-3.5], SQLite for conversational history.
@@ -68,8 +68,6 @@ openai_api_key = [YOUR OPENAI API KEY HERE]
 token_secret = [YOUR SECRET KEY HERE]
 ```
 
-
-
 3. Then, run this
 
 ```sh 
@@ -98,3 +96,7 @@ Follow the instructions given above
 
 ## DISCLAIMER
 Our AI health assistant is designed to complement professional medical advice, not replace it. Patients should always be encouraged to consult with healthcare professionals for any specific medical concerns or emergencies. ***Additionally, we use a third-party [OpenAI] for the chatbot capabilities and they might use the data for training***
+
+## LICENSE
+
+This project is licensed with the MIT License.

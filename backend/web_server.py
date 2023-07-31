@@ -17,8 +17,20 @@ routes = web.RouteTableDef()
 @routes.post("/users")
 async def new_user(request:web.Request):
     request_json = request.json()
-    new_user = database.create_user(request_json)
-    return new_user
+    _new_user = database.create_user(request_json)
+    return _new_user
+
+@routes.post("/users/auth")
+async def auth_user(request:web.Request):
+    request_json = request.json()
+    _auth_user = database.auth_user(request_json)
+    return _auth_user
+
+@routes.get("/messages/{id}")
+async def list_prompts(request:web.Request):
+    request_headers = request.headers
+    auth = request_headers["Authorization"]
+
 
 
 app = web.Application()

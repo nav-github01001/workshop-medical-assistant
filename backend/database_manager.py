@@ -18,13 +18,7 @@ with open("./config.toml") as f:
 with open('./backend/system_prompt.json') as f:
     system_prompts = json.load(f)
 
-generic_disease_system_prompt = """
 
-
-
-
-
-"""
 class DatabaseManager:
     """
     for easy db management
@@ -80,10 +74,10 @@ class DatabaseManager:
 
         salt = self._create_salt()
         password_hash = self._hash_password(data["password"],salt)
-        system_prompt = system_prompts.get(data["disease"],generic_disease_system_prompt)
+      
         user_id = self._create_user_snowflake()
         sql = """
-            INSERT INTO users (user_id, username, email,salt, password_hash,system_prompt)
+            INSERT INTO users (user_id, username, email,salt, password_hash)
             VALUES (?,?,?, ?, ?, ?, ?)
         """
 
@@ -96,11 +90,10 @@ class DatabaseManager:
                 salt,
                 password_hash,
                 data["bot_name"],
-                system_prompt,
             ),
         )
         self.conn.commit()
-        return {"user_id": user_id,"username":username,"email":data["email"],"bot_name":data["bot_name"],"system_prompt":system_prompt}
+        return {"user_id": user_id,"username":username,"email":data["email"],"bot_name":data["bot_name"]}
 
     def auth_user(self, email, password):
         """
