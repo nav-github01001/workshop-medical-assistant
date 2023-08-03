@@ -195,3 +195,7 @@ textarea {
 .dark-mode h3 {
       color: rgb(0, 0, 0)
 }
+
+.dark-mode textarea {
+      border: 2px solid #000000;
+}
