@@ -76,9 +76,10 @@ function onMessage() {
             
             },
             body:JSON.stringify({
-                  "prompt":message
+                  "prompt":message,
             })
       });
+      
 
 }
 
