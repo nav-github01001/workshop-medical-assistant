@@ -15,9 +15,6 @@ from aiohttp.web import json_response
 with open("./config.toml") as f:
     config = tomllib.loads(f.read())
 
-with open('./backend/system_prompt.json') as f:
-    system_prompts = json.load(f)
-
 
 class DatabaseManager:
     """
@@ -25,7 +22,7 @@ class DatabaseManager:
     """
 
     def __init__(self) -> None:
-        self.conn = sqlite3.connect("./database/data.db")
+        self.conn = sqlite3.connect("./backend/data.db")
         self.cursor = self.conn.cursor()
 
     def _create_salt(self):
@@ -46,39 +43,35 @@ class DatabaseManager:
         )
 
     def _token_generator(self, user_id):
-        with open("./database/config/config.json", encoding="utf-8") as f:
-            config = json.load(f)
         return jwt.encode(
             {
                 "user_id": user_id,
-                "exp": int(time_since_unix_epoch()) + (60 * 60 * 24 * 30),
+                "exp": int(time_since_unix_epoch()) + (60 * 60 * 24 * 10),
             },
             config["token_secret"],
         )
 
-    def _validate_token(self, token) -> dict:
-        sql = """SELECT user_id FROM tokens WHERE token=?"""
-        self.cursor.execute(sql, (token))
-        user_id = self.cursor.fetchone()
-        if not user_id:
-            return {"reason": "You are not authorized to access this resource"}
-            
-        return {"user_id":user_id}
+    def _validate_token(self, token):
+        return jwt.decode(token,config["token_secret"],["HS256"])
 
     def create_user(self, data):
         """
         Method for adding a new user to the database
         For Internal use Only
         """
+        print("creating")
         username = data["username"]
+        password = data["password"]
+        if len(password) < 8:
+            return {"reason":"Password should be 8 letters or more"},400
 
         salt = self._create_salt()
-        password_hash = self._hash_password(data["password"],salt)
+        password_hash = self._hash_password(password,salt)
       
         user_id = self._create_user_snowflake()
         sql = """
-            INSERT INTO users (user_id, username, email,salt, password_hash)
-            VALUES (?,?,?, ?, ?, ?, ?)
+            INSERT INTO users(user_id, username, email,salt,password_hash)
+            VALUES (?,?,?, ?, ?)
         """
 
         self.cursor.execute(
@@ -89,29 +82,32 @@ class DatabaseManager:
                 data["email"],
                 salt,
                 password_hash,
-                data["bot_name"],
+            
             ),
         )
         self.conn.commit()
-        return {"user_id": user_id,"username":username,"email":data["email"],"bot_name":data["bot_name"]}
+        print("Created")
+        return {"user_id": user_id,"username":username,"email":data["email"]},201
 
-    def auth_user(self, email, password):
+    def auth_user(self, data):
         """
         Method for authenticating existing user to the application
         For Internal use Only
         """
-        sql = """SELECT user_id,salt,password_hash FROM users WHERE email=?"""
-        self.cursor.execute(sql, (email,))
-        user: tuple = self.cursor.fetchone()
-        user_id, salt, password_hash = user[0], user[1], user[2]
-        if self._hash_password(password, salt) == password_hash:
-            token = self._token_generator(user_id)
-            sql = """INSERT INTO tokens (user_id,token) VALUES (?,?)"""
-            self.cursor.execute(sql, (user_id, token))
-            self.conn.commit()
-            return {"token": token, "user_id": user_id}
-
-        return {"reason": "You are unauthorised to access this service"}
+        print("Authenticating")
+        email = data["email"]
+        password = data["password"] 
+        try:
+            sql = """SELECT user_id,salt,password_hash FROM users WHERE email=?"""
+            self.cursor.execute(sql, (email,))
+            user_id,salt, password_hash =self.cursor.fetchone()
+            if self._hash_password(password, salt) == password_hash:
+                token = self._token_generator(user_id)
+                print("Authenticated")
+                return {"token": token, "user_id": user_id},200
+                
+        except:
+            return {"reason": "Email doesnt Exist"},401
         
 
     # TODO:Add methods
@@ -139,7 +135,10 @@ class DatabaseManager:
         Method for adding a new message/prompt to the database
         For Internal use Only
         """
-        user_id = self._validate_token(token)["user_id"] if self._validate_token(token)["user_id"] else None
+        try:
+            user_id = self._validate_token(token)["user_id"]
+        except jwt.exceptions.DecodeError:
+            return {"reason":"Invalid Token"},401
         created = time_since_unix_epoch()
         message_id = self._create_message_snowflake()
         sql = (
@@ -147,7 +146,7 @@ class DatabaseManager:
         )
         self.cursor.execute(sql, (message_id,user_id, prompt, response, created))
         self.conn.commit()
-        return {"message_id":message_id,"user_id":user_id,"created":created}
+        return {"message_id":message_id,"user_id":user_id,"created":created},200
 
 
     def list_prompts(self, token):
@@ -155,14 +154,17 @@ class DatabaseManager:
         Method for listing messages/prompts from the database
         For Internal use Only
         """
-        user_id = self._validate_token(token)["user_id"] if self._validate_token(token)["user_id"] else None
+        try:
+            user_id = self._validate_token(token)["user_id"]
+        except jwt.exceptions.DecodeError:
+            return {"reason":"Invalid Token"},401
         sql = """SELECT * FROM prompts WHERE user_id=?"""
         self.cursor.execute(sql, (user_id,))
         #Usable format
         prompts = []
         for message_id,_,prompt,response,created in self.cursor.fetchall():
             prompts.append({"message_id":message_id,"user_id":user_id,"prompt":prompt,"response":response,"created":created})
-        return {"user_id":user_id,"prompts":prompts}
+        return {"user_id":user_id,"prompts":prompts},200
 
 
     def _delete_earliest_prompt(self, token):
