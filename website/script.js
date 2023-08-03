@@ -16,11 +16,15 @@ function login() {
       });
       resp2.then(response => response.json()).catch(error => console.error(error));
       if (response.status === 401) {
-            document.getElementById('login-error').innerText = "Invalid Password";
+            document.getElementById('login-error').textContent = "Invalid Password";
             return false; // Prevent form submission
       }
+
+      sessionStorage.setItem("Authorization",response.token);
+
       // For the sake of this example, let's just show a success message.
-      document.getElementById('login-error').innerText = `Welcome, ${username}!`;
+      document.getElementById('login-error').textContent = `Welcome, ${response.username}!`;
+
 
       // Redirect to the index.html page with the username as a query parameter.
       window.location.href = `index.html?username=${encodeURIComponent(username)}`;
@@ -52,7 +56,7 @@ function signUp() {
       //      ).innerText = response.reason;
       //      return false;
       //};
-
+      sessionStorage.setItem("Authorization",response.token);
       // For the sake of this example, let's just show a success message.
       document.getElementById(
             'signup-success'
@@ -61,7 +65,20 @@ function signUp() {
 }
 
 function onMessage() {
-      const message = document.getElementById
+      const message = document.getElementById("messageInput").value
+
+      const resp = fetch("http://127.0.0.1:8080/messages",{
+            method:"POST",
+            mode:"no-cors",
+            headers:{
+                  'Content-Type': 'application/json;charset=utf-8',
+                  'Authorization': `Bearer ${sessionStorage.getItem("Authorization")}`
+            
+            },
+            body:JSON.stringify({
+                  "prompt":message
+            })
+      });
 
 }
 
