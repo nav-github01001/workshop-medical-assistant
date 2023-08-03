@@ -85,16 +85,23 @@ function onMessage() {
 
 const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 const pageContainer = document.getElementById('page-container');
-let isDarkMode = false;
+let isDarkMode = localStorage.getItem('darkMode') === 'true'; // Load user preference
 
 function toggleDarkMode() {
   isDarkMode = !isDarkMode;
 
   if (isDarkMode) {
     pageContainer.classList.add('dark-mode');
+    localStorage.setItem('darkMode', 'true'); // Save user preference
   } else {
     pageContainer.classList.remove('dark-mode');
+    localStorage.setItem('darkMode', 'false'); // Save user preference
   }
 }
 
 toggleDarkModeButton.addEventListener('click', toggleDarkMode);
+
+// Initialize based on user preference
+if (isDarkMode) {
+  pageContainer.classList.add('dark-mode');
+}
