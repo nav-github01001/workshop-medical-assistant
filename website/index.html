@@ -21,23 +21,23 @@
 		<div class="container">
 			<h3>Hello, Guest</h3>
 		</div>
-	
+
 		<script>
 			// Function to get the value of a URL parameter by name
 			function getParameterByName(name) {
-			    const url = new URL(window.location.href);
-			    return url.searchParams.get(name);
+				const url = new URL(window.location.href);
+				return url.searchParams.get(name);
 			}
-	    
+
 			// Get the username from the URL parameter.
 			const username = getParameterByName('username');
-	    
+
 			// Display the username if available.
 			if (username) {
-			    const greetingElement = document.querySelector('h3');
-			    greetingElement.innerText = `Hello, ${username}`;
+				const greetingElement = document.querySelector('h3');
+				greetingElement.innerText = `Hello, ${username}`;
 			}
-		  </script>
+		</script>
 		<div class="messages" id="messages"></div>
 		<div class="input-box">
 			<textarea type="text" id="messageInput" placeholder="Type your message..."></textarea>
