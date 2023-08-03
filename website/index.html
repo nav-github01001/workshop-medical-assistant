@@ -8,6 +8,7 @@
 	<link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 
+<div id="page-container">
 <body>
 	<nav>
 		<a href="login.html" id="login" class="nav-link">Login</a>
@@ -15,35 +16,38 @@
 		<a href="https://github.com/nav-github01001/workshop-medical-assistant" id="src-code"
 			class="nav-link">Source Code on Github</a>
 		<button id="logoutBtn" onclick="logout()" style="display: none;">Logout</button>
+		<button id="toggleDarkMode" class="button">Toggle Dark Mode</button>
 	</nav>
-	<h1 class="center">Personalized AI Health Assistant for Chronic Disease Management</h1>
-	<div class="chat-container">
-		<div class="container">
-			<h3>Hello, Guest</h3>
+
+
+		<h1 class="center">Personalized AI Health Assistant for Chronic Disease Management</h1>
+		<div class="chat-container">
+			<div class="container">
+				<h3>Hello, Guest</h3>
+			</div>
+
+			<script>
+				// Function to get the value of a URL parameter by name
+				function getParameterByName(name) {
+					const url = new URL(window.location.href);
+					return url.searchParams.get(name);
+				}
+
+				// Get the username from the URL parameter.
+				const username = getParameterByName('username');
+
+				// Display the username if available.
+				if (username) {
+					const greetingElement = document.querySelector('h3');
+					greetingElement.innerText = `Hello, ${username}`;
+				}
+			</script>
+			<div class="messages" id="messages"></div>
+			<div class="input-box">
+				<textarea type="text" id="messageInput" placeholder="Type your message..."></textarea>
+				<button class="button bouncy" style="background-color:#ffbebe;">Send</button>
+			</div>
 		</div>
-
-		<script>
-			// Function to get the value of a URL parameter by name
-			function getParameterByName(name) {
-				const url = new URL(window.location.href);
-				return url.searchParams.get(name);
-			}
-
-			// Get the username from the URL parameter.
-			const username = getParameterByName('username');
-
-			// Display the username if available.
-			if (username) {
-				const greetingElement = document.querySelector('h3');
-				greetingElement.innerText = `Hello, ${username}`;
-			}
-		</script>
-		<div class="messages" id="messages"></div>
-		<div class="input-box">
-			<textarea type="text" id="messageInput" placeholder="Type your message..."></textarea>
-			<button class="button bouncy" style="background-color:#2c2c2c;">Send</button>
-		</div>
-	</div>
 </body>
-
+</div>
 </html>

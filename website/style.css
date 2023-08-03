@@ -1,9 +1,26 @@
 html {
-      background-color: rgb(255, 243, 134);
+      background-color: rgb(252, 255, 92);
+}
+
+#page-container {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      /* Set minimum height to cover viewport */
+}
+
+body {
+      border: 0px solid #fff;
+      /* White border */
+      box-sizing: border-box;
+      /* Include border and padding within total dimensions */
+      margin: 0px;
+      /* Remove default margin */
 }
 
 ::selection {
-      color:rgb(255, 25, 25)
+      color: rgb(255, 25, 25)
 }
 
 body {
@@ -56,6 +73,8 @@ body {
       padding: 10px;
       font-weight: bold;
       font-size: 16px;
+      padding: 5px;
+      padding-top: 10px;
 }
 
 .nav-link:hover {
@@ -110,7 +129,7 @@ textarea {
       text-decoration: none;
       font-family: 'Roboto', sans-serif;
       font-weight: 300;
-      color: #ffffffda;
+      color: #000000da;
       text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
       text-align: center;
       transition: all 0.15s;
@@ -119,9 +138,10 @@ textarea {
 
 .button:hover {
       text-shadow: 0 0 2em rgba(255, 255, 255, 1);
-      color: #8eeeff;
-      border-color: #73f6ff;
+      color: #ff5c5c;
+      border-color: #000000;
       border-radius: 5px;
+      font-weight: bold;
 }
 
 @media all and (max-width:30em) {
@@ -164,4 +184,14 @@ textarea {
       100% {
             top: 0em;
       }
+}
+
+/* Dark mode styles */
+.dark-mode {
+      background-color: #2e2e2e;
+      color: #ffffff;
+}
+
+.dark-mode h3 {
+      color: rgb(0, 0, 0)
 }
