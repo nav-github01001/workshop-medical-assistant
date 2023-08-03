@@ -86,8 +86,9 @@ class DatabaseManager:
             ),
         )
         self.conn.commit()
+        token = self._token_generator(user_id)
         print("Created")
-        return {"user_id": user_id,"username":username,"email":data["email"]},201
+        return {"user_id": user_id,"token":token,"username":username,"email":data["email"]},201
 
     def auth_user(self, data):
         """
@@ -105,6 +106,9 @@ class DatabaseManager:
                 token = self._token_generator(user_id)
                 print("Authenticated")
                 return {"token": token, "user_id": user_id},200
+            else:
+                return {"reason": "Invalid Credentials"},401
+                
                 
         except:
             return {"reason": "Email doesnt Exist"},401
@@ -164,11 +168,13 @@ class DatabaseManager:
         prompts = []
         for message_id,_,prompt,response,created in self.cursor.fetchall():
             prompts.append({"message_id":message_id,"user_id":user_id,"prompt":prompt,"response":response,"created":created})
+        if len(prompts) == 20:
+            self._delete_earliest_prompt(token)
         return {"user_id":user_id,"prompts":prompts},200
 
 
     def _delete_earliest_prompt(self, token):
-        prompt_ids = [self.list_prompts(token)["prompts"]["message_id"]]
+        prompt_ids = [prompt["message_id"] for prompt in self.list_prompts(token)["prompts"]]
         sorted_prompts =sorted(prompt_ids)
         sql = """DELETE FROM prompts WHERE prompt_id=?"""
         self.cursor.execute(sql, (sorted_prompts[0],))
