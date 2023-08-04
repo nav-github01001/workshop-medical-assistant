@@ -49,9 +49,13 @@ You will need `python>=3.10` to run it
 
 1. To run it,first install the dependencies
 
+For PyArgon2, library that enables password storage, MSVC is required 
+
 ```sh
 pip install -r requirements.txt
 ```
+
+
 
 2. Configurations:
 
@@ -72,6 +76,7 @@ token_secret = [YOUR SECRET KEY HERE]
 
 ```sh 
 py start.py
+py ./backend/web_server.py
 ```
 
 That simple!

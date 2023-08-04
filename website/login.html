@@ -12,19 +12,26 @@
 <body>
       <div class="container">
             <h1>Login</h1>
-            <form onsubmit="return login()">
+            <form id="loginForm"  >
                   <label for="email">Email:</label>
                   <input type="text" id="email" required>
                   <label for="password">Password:</label>
                   <input type="password" id="password" required>
                   <button type="submit">Login</button>
-                  <p id="login-error"></p>
+                  
             </form>
+            <p id="login-error"></p>
             <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
             <p>Go back to <a href="index.html">Home</a> Page</p>
       </div>
 
       <script src="script.js"></script>
+      <script>
+            document.getElementById("loginForm").onsubmit = function () {
+                  event.preventDefault()
+                  return login()
+            }
+      </script>
 </body>
 
 </html>

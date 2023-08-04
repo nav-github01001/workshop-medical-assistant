@@ -43,6 +43,26 @@ body {
       padding: 10px;
 }
 
+.user-message{
+      color: red;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 5px;
+      padding-top: 10px;
+      text-align: left;
+}
+
+.bot-message{
+      color: blue;
+      padding: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 5px;
+      padding-top: 10px;
+      text-align: right;
+}
+
 .input-box {
       display: flex;
       margin-top: 10px;

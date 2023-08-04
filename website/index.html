@@ -22,24 +22,22 @@
 
 		<h1 class="center">Personalized AI Health Assistant for Chronic Disease Management</h1>
 		<div class="chat-container">
+			<p id="chat-error"></p>
 			<div class="container">
 				<h3>Hello, Guest</h3>
 			</div>
 
 			<script>
-				// Function to get the value of a URL parameter by name
-				function getParameterByName(name) {
-					const url = new URL(window.location.href);
-					return url.searchParams.get(name);
-				}
-
-				// Get the username from the URL parameter.
-				const username = getParameterByName('username');
+				let username = localStorage.getItem("username")
 
 				// Display the username if available.
 				if (username) {
 					const greetingElement = document.querySelector('h3');
 					greetingElement.innerText = `Hello, ${username}`;
+				}
+				else{
+					const greetingElement = document.querySelector('h3');
+					greetingElement.innerText = `Hello, Guest`;
 				}
 			</script>
 			<div class="messages" id="messages"></div>

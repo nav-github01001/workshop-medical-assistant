@@ -12,7 +12,7 @@
 <body>
       <div id="container" class="light-mode">
             <h1>Sign Up</h1>
-            <form onsubmit="return signUp()">
+            <form id="signupForm">
                   <label for="newUsername">Username:</label>
                   <input type="text" id="newUsername" required>
                   <label for="newEmail">Email:</label>
@@ -27,6 +27,12 @@
       </div>
 
       <script src="script.js"></script>
+      <script>
+            document.getElementById("signupForm").onsubmit = function () {
+                  event.preventDefault()
+                  return signUp()
+            }
+      </script>
 </body>
 
 </html>

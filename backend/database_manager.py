@@ -1,16 +1,14 @@
 """
 Database Manager for VoxFlow
 """
-import json
+
 import sqlite3
 from random import choice, randint
 from string import printable
 from time import time as time_since_unix_epoch
-from typing import Union
 import tomllib
 import jwt
 from pyargon2 import hash as pwd_hash_function
-from aiohttp.web import json_response
 
 with open("./config.toml") as f:
     config = tomllib.loads(f.read())
@@ -59,7 +57,6 @@ class DatabaseManager:
         Method for adding a new user to the database
         For Internal use Only
         """
-        print("creating")
         username = data["username"]
         password = data["password"]
         if len(password) < 8:
@@ -87,7 +84,6 @@ class DatabaseManager:
         )
         self.conn.commit()
         token = self._token_generator(user_id)
-        print("Created")
         return {"user_id": user_id,"token":token,"username":username,"email":data["email"]},201
 
     def auth_user(self, data):
@@ -95,21 +91,17 @@ class DatabaseManager:
         Method for authenticating existing user to the application
         For Internal use Only
         """
-        print("Authenticating")
         email = data["email"]
         password = data["password"] 
         try:
-            sql = """SELECT user_id,salt,password_hash FROM users WHERE email=?"""
+            sql = """SELECT user_id,username,salt,password_hash FROM users WHERE email=?"""
             self.cursor.execute(sql, (email,))
-            user_id,salt, password_hash =self.cursor.fetchone()
+            user_id,username,salt, password_hash =self.cursor.fetchone()
             if self._hash_password(password, salt) == password_hash:
                 token = self._token_generator(user_id)
-                print("Authenticated")
-                return {"token": token, "user_id": user_id},200
+                return {"jwt":token,"user_id":user_id,"username":username,"email":email},200
             else:
                 return {"reason": "Invalid Credentials"},401
-                
-                
         except:
             return {"reason": "Email doesnt Exist"},401
         
@@ -146,11 +138,11 @@ class DatabaseManager:
         created = time_since_unix_epoch()
         message_id = self._create_message_snowflake()
         sql = (
-            """INSERT INTO prompts (message_id,user_id,prompt,response,created) VALUES (?,?,?,?)"""
+            """INSERT INTO prompts (message_id,user_id,prompt,response,created) VALUES (?,?,?,?,?)"""
         )
         self.cursor.execute(sql, (message_id,user_id, prompt, response, created))
         self.conn.commit()
-        return {"message_id":message_id,"user_id":user_id,"created":created},200
+        return {"message_id":message_id,"user_id":user_id,"response":response,"created":created},200
 
 
     def list_prompts(self, token):
