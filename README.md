@@ -1,3 +1,6 @@
+## Note
+
+This repository is archived.  You can still fork it but this repository wont recieve updates. 
 # Bootcamp Medical Assistant
 Medical assistant using OpenAI API in python
 
