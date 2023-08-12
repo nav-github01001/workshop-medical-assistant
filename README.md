@@ -82,7 +82,7 @@ py start.py
 py ./backend/web_server.py
 ```
 
-That simple!
+That simple! See the webpage at ./website/index.html
 
 #### Install in Linux/Virtual Environment (venv)
 
