@@ -38,12 +38,11 @@ The backend uses OpenAI API at its core [GPT-3.5], SQLite for conversational his
 Once a message is sent, it is sent to OpenAI which then creates a response which we add to our database (for conversational history). This data is not used for training and is automatically discarded after reaching 20 conversations (although the same cannot be said of OpenAI. Read the [DISCLAIMER](#disclaimer))
 
 ### How to run it locally
-First, clone the repository 
+First, clone the repository and switch to the working directory
 ```sh
 git clone https://github.com/nav-github01001/workshop-medical-assistant
 cd workshop-medical-assistant
 ```
-
 
 **Note: This assumes you are running Windows as your OS, with Vanilla Python and have installed Git in your system**
 
@@ -52,7 +51,7 @@ You will need `python>=3.10` to run it
 
 1. To run it,first install the dependencies
 
-For PyArgon2, library that enables password storage, MSVC is required 
+For PyArgon2, library that enables password storage, MSVC 14+ is required. Download it from [here](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
 
 ```sh
 pip install -r requirements.txt
@@ -66,9 +65,9 @@ Make a new file `config.toml`
 
 Then, you need to create an api key from OpenAI. Create it [here](https://platform.openai.com/account/api-keys)
 
-After that,create a secret key with random numbers,characters
+Make a token secret of random letters and numbers. **Special characters are not allowed**
 
-After that, put this in `config.toml`
+After that, put this in `config.toml`                                                                     
 
 ```toml
 openai_api_key = [YOUR OPENAI API KEY HERE]
@@ -78,11 +77,11 @@ token_secret = [YOUR SECRET KEY HERE]
 3. Then, run this
 
 ```sh 
-py start.py
+py ./start.py
 py ./backend/web_server.py
 ```
 
-That simple! See the webpage at ./website/index.html
+That simple! Follow the steps given by the commands and you will be ready to go!
 
 #### Install in Linux/Virtual Environment (venv)
 
