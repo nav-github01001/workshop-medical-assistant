@@ -1,5 +1,5 @@
-import os
 import openai
+import openai.error
 import tomllib
 from aiohttp import web
 import aiohttp_cors
@@ -67,5 +67,4 @@ cors = aiohttp_cors.setup(app,defaults={"*":aiohttp_cors.ResourceOptions(allow_c
 for route in list(app.router.routes()):
     cors.add(route)
 
-print(f"Open a web browser and view the website with this link: file://{os.getcwd()}/website/index.html")
 web.run_app(app, host="127.0.0.1", port=8080)

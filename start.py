@@ -5,10 +5,10 @@ import sqlite3
 
 print("-----------------------medical-assistant------------------------")
 print("Checking if database exists")
-if not os.path.exists("./backend/data.db"):
+if not os.path.exists("./backend/data1.db"):
     print("Database not found. Creating Database")
 
-    conn = sqlite3.connect("./backend/data.db")
+    conn = sqlite3.connect("./backend/data1.db")
 
     cursor = conn.cursor()
 
@@ -32,6 +32,4 @@ if not os.path.exists("./backend/data.db"):
     )""")
     cursor.close()
     print("Finished creating Database")
-
-print("Now run python ./backend/web_server.py ")
 

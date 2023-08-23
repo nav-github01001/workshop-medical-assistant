@@ -36,7 +36,8 @@
 					greetingElement.innerText = `Hello, ${username}`;
 				}
 				else{
-					window.location.href = `login.html`;
+					const greetingElement = document.querySelector('h3');
+					greetingElement.innerText = `Hello, Guest`;
 				}
 			</script>
 			<div class="messages" id="messages"></div>
